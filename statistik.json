@@ -1,0 +1,121 @@
+{
+    "areaMallusetasi": [
+        {
+            "kecamatan": "Mallusetasi"
+        },
+        {
+            "dpt": 20349
+        },
+        {
+            "target": 8751
+        },
+        {
+            "penjaringan": 9205
+        },
+        {
+            "persen": 104
+        }
+    ],
+    "areaBarru": [
+        {
+            "kecamatan": "Barru"
+        },
+        {
+            "dpt": 33424
+        },
+        {
+            "target": 14373
+        },
+        {
+            "penjaringan": 9726
+        },
+        {
+            "persen": 68
+        }
+    ],
+    "areaBalusu": [
+        {
+            "kecamatan": "Balusu"
+        },
+        {
+            "dpt": 14776
+        },
+        {
+            "target": 6354
+        },
+        {
+            "penjaringan": 3851
+        },
+        {
+            "persen": 61
+        }
+    ],
+    "areaSoppengRiaja": [
+        {
+            "kecamatan": "SoppengRiaja"
+        },
+        {
+            "dpt": 13668
+        },
+        {
+            "target": 5878
+        },
+        {
+            "penjaringan": 3111
+        },
+        {
+            "persen": 53
+        }
+    ],
+    "areaTaneteRilau": [
+        {
+            "kecamatan": "Tanete Rilau"
+        },
+        {
+            "dpt": 27740
+        },
+        {
+            "target": 11929
+        },
+        {
+            "penjaringan": 3153
+        },
+        {
+            "persen": 27
+        }
+    ],
+    "areaTaneteRiaja": [
+        {
+            "kecamatan": "TaneteRiaja"
+        },
+        {
+            "dpt": 19271
+        },
+        {
+            "target": 8287
+        },
+        {
+            "penjaringan": 1674
+        },
+        {
+            "persen": 21
+        }
+    ],
+    "areaPujananting": [
+        {
+            "kecamatan": "Pujananting"
+        },
+        {
+            "dpt": 10166
+        },
+        {
+            "target": 4372
+        },
+        {
+            "penjaringan": 195
+        },
+        {
+            "persen": 5
+        }
+    ]
+}

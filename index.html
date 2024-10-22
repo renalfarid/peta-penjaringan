@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container to center the map */
+        #map-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style for the tooltip */
+        #tooltip {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+            font-size: 14px;
+        }
+
+        /* Highlighted areas based on percentage */
+        .highlight-yellow {
+            fill: hsl(60, 76%, 51%);
+        }
+
+        .highlight-orange {
+            fill: orange;
+        }
+
+        .highlight-pink {
+            fill: pink;
+        }
+
+        /* Optional: make sure the map does not overflow */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Styling the percentage text inside the SVG */
+        .percentage-text {
+            font-size: 12px;
+            fill: black;
+            font-weight: bold;
+            text-anchor: middle; /* To center the text */
+        }
+    </style>
+</head>
+<body>
+
+<div id="map-container">
+    <!-- Load the SVG map -->
+    <svg width="156" height="482" viewBox="0 0 156 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32.5 342.249V338.749L35 332.749L37 328.749L43 321.749H48L51.5 325.249L58 330.249L74 331.249L80.5 338.749L84 344.749C84 344.749 85 348.249 85 348.749C85 349.249 85.5 349.749 89 352.749C92.5 355.749 95 357.249 98 356.249C101 355.249 102.5 352.749 102.5 352.749L107.5 344.249L110.5 338.749L113.5 336.749L115.5 338.249L119 342.249L123.5 343.749L127.5 350.249L136 357.749H130L124 360.749L121 364.749L117.5 368.249L115 371.249L112.5 379.749L115 393.749L114 400.249V407.249L116.5 412.249L125.5 414.249H133.5L144.5 420.749L151 424.249L156 431.249V437.749V443.749V449.249L148.5 455.749L144.5 461.249L138 459.249L136 455.749C127.5 453.749 121 455.749 121 455.749L117.5 461.249L115 466.749L110.5 470.249V475.749L106.5 479.249L96.5 481.423C96.5 481.423 92.063 475.455 88 475.423C85.2814 475.401 77.8289 477.005 75.3296 477.562C75.2707 477.726 75.0174 477.797 74.5 477.749C74.5 477.749 74.8062 477.678 75.3296 477.562C75.6465 476.677 70.3368 473.081 70.25 470.749C70.147 467.982 65.3083 466.871 66 463.749C66.5375 461.322 70.5 459.249 70.5 459.249H76.5V455.749L73 449.249V435.749L69 431.249H59L55 433.749L48 428.749V424.249L51 420.749L48 412.249V409.249L51 402.749L53.5 392.749L51 389.749L43 381.749L39 373.749L37 368.249L35 360.749L32.5 352.749V342.249Z" class="areaPujananting" id="areaPujananting" fill="#FFFF00"/>
+        <path d="M33 279.249L34 276.249L36.5 274.749L42 273.249L46 267.249L49.5 266.249L54 265.249L57.5 263.749H61L65 268.249L69 269.749L73.5 270.749L76 273.249L79.5 277.749L80.5 279.249L82.5 280.249L86 278.749L87.5 279.249L88 282.749L92 286.249L96 289.249L99.5 291.249L102.5 291.749L106 290.749L108.5 286.749L115 281.749L117.5 280.249L122 278.749L127 281.749L132 286.749L135 289.249V294.749V297.749L140 302.249L143.5 306.249L145 311.749V316.249L146.5 320.249L145 323.249C145.012 323.249 145.024 323.249 145.035 323.248C145.546 322.893 145.783 323.238 145.035 323.248C144.57 323.572 143.878 324.478 143.5 326.749C142.7 331.549 142.167 337.249 142 340.249C142.667 340.249 143.6 341.049 142 344.249C140.4 347.449 138.333 348.915 137.5 349.249L135 354.249L130 349.249L125 342.749C126.167 342.582 127.6 342.049 124 341.249C120.4 340.449 118.167 339.249 117.5 338.749L114 335.749H112.5C111.3 335.749 109.167 338.082 108.5 338.749L107 342.749L104 348.249L99.5 352.749H96H91.5L87.5 349.249L84.5 343.749L81 337.749L75.5 330.749L67 327.749H61L54 323.249L49 320.249H44.5V311.749V306.249L40.5 300.249L34 296.249L29.5 291.249L28.5 286.749L31 281.749L33 279.249Z" id="areaTaneteRilau" fill="#328D07"/>
+        <path d="M9.5 229.749L11 227.749L12.5 223.749L14 220.749L15.5 214.749L18 210.249L20.5 204.749L23 201.249L24.5 198.249L27 197.249L28 196.249V193.749L30 192.249L35 193.749L44 194.749L50 195.249L56.5 196.249L62 196.749H71L77.5 195.249L84.5 194.749L89 193.749C90.3333 193.749 93.1 193.849 93.5 194.249C93.9 194.649 95 194.415 95.5 194.249H99.5L104 196.249L107.5 198.249L110.5 203.749L112.5 213.249V220.749V239.749V255.249V260.249L113.5 265.749L115 274.249V279.249L114.5 280.749L108.5 287.249L105 288.749L102.5 289.749L99.5 288.749L93.5 285.749L90.5 283.249L90 282.249L89 280.749L87.5 278.249H85.5L82 277.749L78.5 273.249L75.5 270.249L73 268.749L70 267.249L65.5 265.249L61.5 263.249L58.5 262.249H56L53 264.249H50L49.5 262.249L49 259.749L48 257.249L45.5 255.249L42 252.249L39 249.249L36.5 246.749L34.5 245.249L32.5 243.249L29 242.749L25.5 241.749L22.5 241.249L19 239.749H16H14L11 235.249L9.5 232.249V229.749Z" id="areaBarru" class="areaBarru" fill="#18BD5D"/>
+        <path d="M44 255.749L42.5 254.749L39 251.749L35.5 248.749L33 246.749L30.5 244.749L28.5 243.749H26.5H24H21.5L18.5 241.749L16.5 241.249L14.5 241.749L13 242.749L10.5 243.749L10 245.249L9 253.749L10 259.249L9 272.249V276.249L7.5 279.249L6 282.249L5 286.249L2.5 293.249L1 301.749L0 304.749V307.249L1 309.249L4 313.749L5 316.249L6 319.249V321.249L7 323.749H9L13 324.749L17 325.749L20 327.749L22.5 330.749L25 333.249L27.5 335.749L29.5 336.749L31 335.749L33 334.249V332.249L34 329.749L35.5 327.749L37 325.749L39.5 323.749L41 321.249L42.5 318.249V314.749L43 311.749L42.5 307.249L41 304.749L37.5 301.749L35.5 299.749L34 297.749L32 296.249L29.5 294.749L27.5 293.249L26.5 291.249V288.249V286.249L27.5 284.249L29.5 279.749L31 277.249L33 274.749L34 273.249L35.5 272.249H37L39 271.749L41 270.249L42.5 269.249L44 267.249L45.5 265.249L46.5 262.749L47 260.749V259.249L46.5 257.749L45.5 256.749L44 255.749Z" id="areaTaneteRiaja" fill="#126F6F"/>
+        <path d="M81.5 152.749H80.5L75.5 152.249L72.5 150.749L68.5 149.749L64.5 148.249L61 146.249L58 143.249L55 141.749H53.5L50.5 140.249L48 139.749L44.5 139.249L42 140.249H40L38.5 141.749L36.5 143.249H35L33 143.749V144.749L32.5 145.249H31.5H30.5H29L27.5 146.249L28 148.249L29 149.749H30.5L32.5 150.749L34.5 154.249V155.749L34 156.749L32.5 158.249V159.249V160.749L34 162.749V166.249V170.749L32.5 173.749L30 177.249L28 179.249H26.5L25.5 180.749V181.749L26.5 183.749L28 184.749L29 185.249L30 186.749L29 188.249L30 190.249L32.5 190.749L36 192.249L43 192.749L48.5 193.749L57 194.249H66L71.5 193.749L79 192.749L85 192.249H90.5H96L100 193.249L102.5 193.749L104.5 194.749L106 195.749L107 196.749L109 198.249L109.5 197.749L111 195.249L111.5 192.749L113 190.249L113.5 188.249V186.749V183.749L113 180.749L112.5 178.249L112 173.749L111.5 170.749V164.749L111 158.249V153.249L111.5 149.249L111 146.749L110.5 145.249L110 143.749L108 143.249L106.5 142.749L104.5 143.249L103 144.249L100.5 145.249L100 146.749L99 147.249L97 148.249L96 149.249L94 149.749L91.5 150.749L89.5 151.749L87.5 152.249L84.5 152.749H81.5Z" id="areaBalusu" fill="#20406A"/>
+        <path d="M27.5 91.7487L26 90.7487L25.5 88.7487L28 86.7487L29 84.7487L29.5 82.7487L29 79.2487V77.2487L30.5 75.7487L33.5 75.2487L35 73.7487L36 70.7487L36.5 67.7487L37 65.2487L35 62.2487L33 59.7487L29.5 57.7487L27.5 55.7487L22.5 52.7487L22 50.2487L22.5 47.7487L23.5 45.7487L24.5 41.2487V36.7487L25.5 31.2487L24.5 28.2487L23.5 25.7487L19 24.2487L17 21.7487V19.7487L19 17.7487L21 15.7487L21.5 13.7487V12.2487L21 10.7487L18.5 9.74869H17L15.5 8.24869V7.24869L17 5.74869L21 2.24869L23.5 0.748688H26L28 3.24869L31 4.24869L33.5 5.74869L37.5 6.24869H40H43.5L51 4.74869L57.5 3.24869L64.5 4.24869L66.5 5.74869H69L73.5 4.24869L78.5 6.24869L84.5 7.24869H86.5L88 9.74869L89 12.7487V15.7487L90 17.2487L92.5 19.7487L97 24.2487L102 29.7487L107 35.7487L108 38.7487V41.2487L106 43.2487L102 47.2487L98 49.7487L96 52.7487L97 55.7487V58.7487V62.2487V65.2487V69.2487V71.7487L99 73.7487L102 75.7487L105 79.2487L107 81.7487L109 84.2487L111 88.7487V91.7487V93.2487H109L107 92.2487H105L102 93.2487L99 94.2487L93 95.2487L90 97.2487L88.5 98.2487L87 100.249L85 102.749L83 105.249L81 107.249V109.749L83 111.249L85 113.749V115.749L84.5 118.249H83L80 118.749L76 119.749L71.5 120.249L69 121.749L65.5 122.749H63L59.5 121.749L57.5 120.249L55 118.249L53 115.249L50.5 112.249L49 108.249L46.5 103.249L45.5 100.249V98.2487L44.5 95.2487L43.5 94.2487H41.5L40.5 92.2487L39 90.7487H37H35L34 91.7487L33 93.2487L32 92.2487L30.5 91.7487H29H27.5Z" class="areaMallusetasi" id="areaMallusetasi" fill="#2A4AC7"/>
+      <path d="M21 96.2487L22 94.7487L23.5 93.7487V93.2487L21 90.7487L20.5 89.7487H22L25 91.7487L26.5 93.2487L28 93.7487H29.5L31 94.7487L33 95.2487L33.5 94.7487L34.5 93.2487L36.5 92.2487L39 93.2487L43 98.2487L44 100.249L45 104.249L46.5 108.749L51 116.249L53 119.749L57 123.249L61.5 125.249H65L66.5 124.249L68.5 123.249L70.5 121.749H73.5L77.5 120.749L80 119.749H85.5L89 120.749L91 121.749L94 123.249L96 125.749L98 128.249L100 130.749L103 134.749L104.5 138.749V141.249L103 142.249L100 144.249L97.5 145.749L95 147.249L92.5 148.749L89 150.249H85.5H80H76.5L73.5 149.249L71.5 148.749L68 147.249L66.5 145.749L63.5 144.249L61.5 143.249L58.5 141.249L54 139.249L51 138.749L49 137.749L46 137.249H43.5H41L38 139.249L34.5 141.249L33 142.249L31 143.249H29L27 142.249L23.5 138.749L22 135.749L20.5 133.749L19.5 130.749L18.5 128.749V127.249L17.5 125.749L15.5 123.249L13.5 121.249L11.5 120.749L9.5 118.749L7 115.749V113.249L8 111.749H11.5H15L18 112.749H21H23.5H25.5L26.5 111.749L28 110.749L29 108.749V106.749L28 103.749L25.5 102.749L23.5 101.249L22 99.7487L21 97.7487V96.2487Z" id="areaSoppengRiaja" fill="#2A4AC7"/>
+
+      <text id="textMallusetasi" class="percentage-text" x="60" y="70"></text>
+        <text id="textBarru" class="percentage-text" x="80" y="230"></text>
+        <text id="textBalusu" class="percentage-text" x="60" y="170"></text>
+        <text id="textSoppengRiaja" class="percentage-text" x="70" y="140"></text>
+        <text id="textTaneteRilau" class="percentage-text" x="20" y="300"></text>
+        <text id="textTaneteRiaja" class="percentage-text" x="110" y="320"></text>
+        <text id="textPujananting" class="percentage-text" x="90" y="390"></text>
+    </svg>
+      
+</div>
+
+<!-- Tooltip to show data on hover -->
+<div id="tooltip"></div>
+
+<script>
+    // Load the JSON data
+    fetch('statistik.json')
+        .then(response => response.json())
+        .then(data => {
+           // Loop through each area in the JSON
+           Object.keys(data).forEach(areaKey => {
+                const areaData = data[areaKey]; // Get the data for each area
+                const kecamatan = areaData[0].kecamatan;
+                const dpt = areaData[1].dpt;
+                const target = areaData[2].target;
+                const penjaringan = areaData[3].penjaringan;
+                const persen = areaData[4].persen;
+
+                // Get the corresponding area element in the SVG
+                const area = document.getElementById(areaKey);
+
+                // Change color based on 'persen' value
+                if (persen >= 100) {
+                    area.classList.add('highlight-yellow');
+                } else if (persen >= 50) {
+                    area.classList.add('highlight-orange');
+                } else {
+                    area.classList.add('highlight-pink');
+                }
+
+                // Add hover event to show tooltip
+                area.addEventListener('mouseenter', function (event) {
+                    const tooltip = document.getElementById('tooltip');
+                    tooltip.innerHTML = `
+                        <strong>Kecamatan:</strong> ${kecamatan}<br>
+                        <strong>DPT:</strong> ${dpt}<br>
+                        <strong>Target:</strong> ${target}<br>
+                        <strong>Penjaringan:</strong> ${penjaringan}<br>
+                        <strong>Persen:</strong> ${persen}%
+                    `;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = `${event.pageX + 10}px`;
+                    tooltip.style.top = `${event.pageY + 10}px`;
+                });
+
+                // Hide tooltip on mouse leave
+                area.addEventListener('mouseleave', function () {
+                    const tooltip = document.getElementById('tooltip');
+                    tooltip.style.display = 'none';
+                });
+
+                // Update percentage text inside each area
+                const textElement = document.getElementById(`text${areaKey.replace('area', '')}`);
+                if (textElement) {
+                    textElement.textContent = persen + '%';
+                }
+
+            });
+        })
+        .catch(error => console.error('Error loading JSON:', error));
+</script>
+
+</body>
+</html>
